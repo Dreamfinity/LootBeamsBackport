@@ -47,9 +47,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.fasterxml.jackson.core:jackson-core:2.13.0'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    compile "org.dreamfinity.hooklib:HookLibUltimate-1.0:universal-dev"
 }
 
 processResources {
@@ -67,75 +65,83 @@ processResources {
 }
 
 
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'org.dreamfinity.lootbeamsbackport.HookLoader'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+
 // Semantic versioning
 
 task JustBuild(type: WriteProperties) {
-    outputFile = file("gradle.properties");
-    project.buildVersion = Integer.parseInt(project.buildVersion) + 1;
-    property 'buildVersion', project.buildVersion;
-    property 'version', makeVersion(project.version, false, false, false);
+    outputFile = file("gradle.properties")
+    project.buildVersion = Integer.parseInt(project.buildVersion) + 1
+    property 'buildVersion', project.buildVersion
+    property 'version', makeVersion(project.version, false, false, false)
 }
 
 task Patch(type: WriteProperties) {
-    outputFile = file("gradle.properties");
-    def newVersion = makeVersion(project.version, false, false, true);
-    property 'buildVersion', 0;
-    property 'version', newVersion;
+    outputFile = file("gradle.properties")
+    def newVersion = makeVersion(project.version, false, false, true)
+    property 'buildVersion', 0
+    property 'version', newVersion
 }
 
 task Minor(type: WriteProperties) {
-    outputFile = file("gradle.properties");
-    def newVersion = makeVersion(project.version, false, true, false);
-    property 'buildVersion', 0;
-    property 'version', newVersion;
+    outputFile = file("gradle.properties")
+    def newVersion = makeVersion(project.version, false, true, false)
+    property 'buildVersion', 0
+    property 'version', newVersion
 }
 
 task Major(type: WriteProperties) {
-    outputFile = file("gradle.properties");
-    def newVersion = makeVersion(project.version, true, false, false);
-    property 'buildVersion', 0;
-    property 'version', newVersion;
+    outputFile = file("gradle.properties")
+    def newVersion = makeVersion(project.version, true, false, false)
+    property 'buildVersion', 0
+    property 'version', newVersion
 }
 
-Major.finalizedBy('build');
-Minor.finalizedBy('build');
-Patch.finalizedBy('build');
-JustBuild.finalizedBy('build');
+Major.finalizedBy('build')
+Minor.finalizedBy('build')
+Patch.finalizedBy('build')
+JustBuild.finalizedBy('build')
 
 def makeVersion(prevVersion, isMajorRelease, isMinorRelease, isPatch) {
-    def (major, minor, patch) = prevVersion.tokenize('.');
-    patch = patch.split("-")[0];
-    def newVersion;
+    def (major, minor, patch) = prevVersion.tokenize('.')
+    patch = patch.split("-")[0]
+    def newVersion
 
     if (isMajorRelease) {
-        newVersion = "${Integer.parseInt(major) + 1}.$minor.$patch";
+        newVersion = "${Integer.parseInt(major) + 1}.$minor.$patch"
     } else if (isMinorRelease) {
-        newVersion = "$major.${Integer.parseInt(minor) + 1}.$patch";
+        newVersion = "$major.${Integer.parseInt(minor) + 1}.$patch"
     } else if (isPatch) {
-        newVersion = "$major.$minor.${Integer.parseInt(patch) + 1}";
+        newVersion = "$major.$minor.${Integer.parseInt(patch) + 1}"
     } else {
-        newVersion = "$major.$minor.$patch-build-$project.buildVersion";
+        newVersion = "$major.$minor.$patch-build-$project.buildVersion"
     }
 
     if (isMajorRelease || isMinorRelease || isPatch) {
-        println("Migrating from $prevVersion to $newVersion");
+        println("Migrating from $prevVersion to $newVersion")
     }
-    return newVersion;
+    return newVersion
 }
 
 configure(Major) {
-    group = "Semantic versioned";
+    group = "Semantic versioned"
     description = "Builds .jar increasing major number: major.y.z"
 }
 configure(Minor) {
-    group = "Semantic versioned";
+    group = "Semantic versioned"
     description = "Builds .jar increasing minor number: x.minor.y"
 }
 configure(Patch) {
-    group = "Semantic versioned";
+    group = "Semantic versioned"
     description = "Builds .jar increasing patch number: x.y.patch"
 }
 configure(JustBuild) {
-    group = "Semantic versioned";
+    group = "Semantic versioned"
     description = "Builds .jar adding '-build-N' suffix and increasing build number: x.y.z-build-N"
 }

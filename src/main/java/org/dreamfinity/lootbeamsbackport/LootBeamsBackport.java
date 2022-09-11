@@ -1,4 +1,4 @@
-package org.dreamfinity.template;
+package org.dreamfinity.lootbeamsbackport;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -7,31 +7,29 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.dreamfinity.template.proxy.CommonProxy;
+import org.dreamfinity.lootbeamsbackport.proxy.CommonProxy;
 
 
 @Mod(
-    modid = Template.MODID,
-    name = Template.NAME,
-    version = Template.VERSION
+    modid = LootBeamsBackport.MODID,
+    name = LootBeamsBackport.NAME,
+    version = LootBeamsBackport.VERSION
 )
-public class Template {
-    public static final  String MODID = "template";
-    public static final String NAME = "Mod Template";
+public class LootBeamsBackport {
+    public static final  String MODID = "lootbeamsbackport";
+    public static final String NAME = "LootBeamsBackport";
     public static final String VERSION = "@version@";
-    public static Logger logger = LogManager.getLogger(MODID);
-    @Mod.Instance(MODID)
-    public static Template instance;
 
     @SidedProxy(
-        clientSide = "org.dreamfinity.template.proxy.ClientProxy",
-        serverSide = "org.dreamfinity.template.proxy.CommonProxy"
+        clientSide = "org.dreamfinity.lootbeamsbackport.proxy.ClientProxy",
+        serverSide = "org.dreamfinity.lootbeamsbackport.proxy.CommonProxy"
     )
     public static CommonProxy proxy;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+        Config.load(event);
     }
 
     @Mod.EventHandler

@@ -1,13 +1,13 @@
 [
     {
-      "modid": "template",
-      "name": "Mod Template",
-      "description": "A template for minecraft 1.7.10 mod",
+      "modid": "lootbeamsbackport",
+      "name": "Loot Beams backport",
+      "description": "Backport of shiroroku's Loot Beams to 1.7.10",
       "version": "${version}",
       "mcversion": "${mcversion}",
       "updateUrl": "",
-      "authorList": ["Author"],
-      "credits": "All code contributors",
+      "authorList": ["Veritaris"],
+      "credits": "All code contributors and especially to shiroroku as original mod developer",
       "logoFile": "",
       "screenshots": [],
       "dependencies": []
