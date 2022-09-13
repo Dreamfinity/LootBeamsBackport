@@ -23,7 +23,7 @@ apply plugin: "java"
 
 
 group 'com.dreamfinity.' + {rootProject.name}
-version project.version
+version "$project.version-embeded"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
@@ -50,7 +50,6 @@ repositories {
 }
 
 dependencies {
-    compile "org.dreamfinity.hooklib:HookLibUltimate-1.0:universal-dev"
     compile "org.dreamfinity.baubles:Baubles-1.7.10-1.0.1.10:dev"
     compile "org.dreamfinity.thaumcraft:Thaumcraft-1.7.10-4.2.3.5:dev"
     compile "org.dreamfinity.travellersgear:TravellersGear-1.7.10-1.16.6:dev"
