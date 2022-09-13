@@ -14,7 +14,7 @@
 ## Configurable options:
 ```
 "Beam settings" {
-    # Beam diameter [range: 0.05 ~ 3.0, default: 0.25] - stick in world has width 1, so u can rely in it
+    # Beam diameter [range: 0.05 ~ 3.0, default: 0.25] - stick in world has width 1, so u can rely on it
     S:beamDiameter=0.25
 
     # Beam height (in blocks) [range: 0.5 ~ 32.0, default: 4.0] - height in blocks
