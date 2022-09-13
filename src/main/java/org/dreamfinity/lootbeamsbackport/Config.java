@@ -11,6 +11,7 @@ public class Config {
     public static boolean needRenderBeam = true;
     public static boolean useHighResBeam = true;
     public static boolean useRotatingBeam = true;
+    public static boolean useFloatingBeam = true;
     public static double beamDiameter = 0.25;
     public static double beamHeight = 1.5;
 
@@ -20,8 +21,9 @@ public class Config {
         needRenderBeam = config.getBoolean("needRenderBeam", COMMON, true,  "Render beam above items or not");
         useHighResBeam = config.getBoolean("useHighResBeam", COMMON, true,  "Use high-res (256x256) beam texture or low-res(16x16)");
         useRotatingBeam = config.getBoolean("useRotatingBeam", COMMON, true,  "Rotate beam over time (like beacon's beam)");
+        useFloatingBeam = config.getBoolean("useFloatingBeam", COMMON, true,  "Slightly float beam over time");
         beamDiameter = config.getFloat("beamDiameter", COMMON, 0.25f, 0.05f, 3.0f, "Beam diameter");
-        beamHeight = config.getFloat("beamHeight", COMMON, 1.5f, 0.5f, 32.0f, "Beam height (in blocks)");
+        beamHeight = config.getFloat("beamHeight", COMMON, 4.0f, 0.5f, 32.0f, "Beam height (in blocks)");
         config.save();
     }
 

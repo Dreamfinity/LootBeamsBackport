@@ -44,10 +44,16 @@ repositories {
     maven {
         url 'https://cloudrep.veritaris.me/repos'
     }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     compile "org.dreamfinity.hooklib:HookLibUltimate-1.0:universal-dev"
+    compile "org.dreamfinity.baubles:Baubles-1.7.10-1.0.1.10:dev"
+    compile "org.dreamfinity.thaumcraft:Thaumcraft-1.7.10-4.2.3.5:dev"
+    compile "org.dreamfinity.travellersgear:TravellersGear-1.7.10-1.16.6:dev"
 }
 
 processResources {

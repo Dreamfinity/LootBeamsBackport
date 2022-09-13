@@ -3,6 +3,7 @@ package org.dreamfinity.lootbeamsbackport;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -35,10 +36,13 @@ public class BeamRenderer {
         put("g", new Color(0xDDD605));
     }};
 
-    public static void renderBeam(World world, ItemStack itemStack) {
+    public static void renderBeam(EntityItem entityItem) {
         Color beamColor;
+        World world = entityItem.worldObj;
+        int age = entityItem.age;
+        ItemStack itemStack = entityItem.getEntityItem();
 
-        if (itemStack == null || !Config.needRenderBeam) {
+        if (world == null || itemStack == null || !Config.needRenderBeam) {
             return;
         }
 
@@ -57,10 +61,13 @@ public class BeamRenderer {
         GL11.glColor4f(beamColor.getRed(), beamColor.getGreen(), beamColor.getBlue(), 0.01f);
         GL11.glBlendFunc(GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE);
 
-        float totalWorldTime = Config.useRotatingBeam ? (float) world.getTotalWorldTime() : 0;
-        double rotationAngle = (double) totalWorldTime * 0.025 * (1.0 - 2.5);
+        float totalWorldTime = Config.useRotatingBeam ? (float) age : 0;
+        double rotationAngle = (double) totalWorldTime * 1 / (MAX_HEIGHT + 4) * 0.05 * (1.0 - 2.5);
+        double heightOffset = Config.useFloatingBeam ? Math.cos(totalWorldTime * 0.05) * (1 / (MAX_HEIGHT)) : 0.2;
+
         tessellator.startDrawingQuads();
         tessellator.setColorRGBA(beamColor.getRed(), beamColor.getGreen(), beamColor.getBlue(), beamColor.getAlpha());
+        tessellator.setBrightness(15728880);
 
         double beamDiameter = Config.beamDiameter;
         double radiusMultiplier = beamDiameter * 0.4;
@@ -76,54 +83,95 @@ public class BeamRenderer {
         double var32 = beamRadius + Math.sin(rotationAngle + 5.497787143782138) * radiusMultiplier;
 
         double entityXPos = -beamDiameter / 2;
-        double entityYPos = 0.1 + beamDiameter;
+        double entityYPos = 0.2 + heightOffset + MAX_HEIGHT / 2;
         double entityZPos = -beamDiameter / 2;
 
-        tessellator.addVertexWithUV(entityXPos + var18, entityYPos + MAX_HEIGHT, entityZPos + var20, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + var18, entityYPos + MAX_HEIGHT / 2, entityZPos + var20, 0, 0);
         tessellator.addVertexWithUV(entityXPos + var18, entityYPos, entityZPos + var20, 0, 1);
         tessellator.addVertexWithUV(entityXPos + var22, entityYPos, entityZPos + var24, 1, 1);
-        tessellator.addVertexWithUV(entityXPos + var22, entityYPos + MAX_HEIGHT, entityZPos + var24, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var22, entityYPos + MAX_HEIGHT / 2, entityZPos + var24, 1, 0);
 
-        tessellator.addVertexWithUV(entityXPos + var30, entityYPos + MAX_HEIGHT, entityZPos + var32, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + var30, entityYPos + MAX_HEIGHT / 2, entityZPos + var32, 0, 0);
         tessellator.addVertexWithUV(entityXPos + var30, entityYPos, entityZPos + var32, 0, 1);
         tessellator.addVertexWithUV(entityXPos + var26, entityYPos, entityZPos + var28, 1, 1);
-        tessellator.addVertexWithUV(entityXPos + var26, entityYPos + MAX_HEIGHT, entityZPos + var28, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var26, entityYPos + MAX_HEIGHT / 2, entityZPos + var28, 1, 0);
 
-        tessellator.addVertexWithUV(entityXPos + var22, entityYPos + MAX_HEIGHT, entityZPos + var24, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + var22, entityYPos + MAX_HEIGHT / 2, entityZPos + var24, 0, 0);
         tessellator.addVertexWithUV(entityXPos + var22, entityYPos, entityZPos + var24, 0, 1);
         tessellator.addVertexWithUV(entityXPos + var30, entityYPos, entityZPos + var32, 1, 1);
-        tessellator.addVertexWithUV(entityXPos + var30, entityYPos + MAX_HEIGHT, entityZPos + var32, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var30, entityYPos + MAX_HEIGHT / 2, entityZPos + var32, 1, 0);
 
-        tessellator.addVertexWithUV(entityXPos + var26, entityYPos + MAX_HEIGHT, entityZPos + var28, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + var26, entityYPos + MAX_HEIGHT / 2, entityZPos + var28, 0, 0);
         tessellator.addVertexWithUV(entityXPos + var26, entityYPos, entityZPos + var28, 0, 1);
         tessellator.addVertexWithUV(entityXPos + var18, entityYPos, entityZPos + var20, 1, 1);
-        tessellator.addVertexWithUV(entityXPos + var18, entityYPos + MAX_HEIGHT, entityZPos + var20, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var18, entityYPos + MAX_HEIGHT / 2, entityZPos + var20, 1, 0);
+
+        tessellator.addVertexWithUV(entityXPos + var22, entityYPos - MAX_HEIGHT / 2, entityZPos + var24, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var22, entityYPos, entityZPos + var24, 1, 1);
+        tessellator.addVertexWithUV(entityXPos + var18, entityYPos, entityZPos + var20, 0, 1);
+        tessellator.addVertexWithUV(entityXPos + var18, entityYPos - MAX_HEIGHT / 2, entityZPos + var20, 0, 0);
+
+        tessellator.addVertexWithUV(entityXPos + var30, entityYPos - MAX_HEIGHT / 2, entityZPos + var32, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + var26, entityYPos - MAX_HEIGHT / 2, entityZPos + var28, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var26, entityYPos, entityZPos + var28, 1, 1);
+        tessellator.addVertexWithUV(entityXPos + var30, entityYPos, entityZPos + var32, 0, 1);
+
+        tessellator.addVertexWithUV(entityXPos + var30, entityYPos - MAX_HEIGHT / 2, entityZPos + var32, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var30, entityYPos, entityZPos + var32, 1, 1);
+        tessellator.addVertexWithUV(entityXPos + var22, entityYPos, entityZPos + var24, 0, 1);
+        tessellator.addVertexWithUV(entityXPos + var22, entityYPos - MAX_HEIGHT / 2, entityZPos + var24, 0, 0);
+
+        tessellator.addVertexWithUV(entityXPos + var18, entityYPos - MAX_HEIGHT / 2, entityZPos + var20, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + var18, entityYPos, entityZPos + var20, 1, 1);
+        tessellator.addVertexWithUV(entityXPos + var26, entityYPos, entityZPos + var28, 0, 1);
+        tessellator.addVertexWithUV(entityXPos + var26, entityYPos - MAX_HEIGHT / 2, entityZPos + var28, 0, 0);
 
         GL11.glEnable(GL11.GL_BLEND);
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
         GL11.glDepthMask(false);
         double outlineRadius = beamRadius * 2;
 
-        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT, entityZPos, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT / 2, entityZPos, 1, 0);
         tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos, 1, 1);
         tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos, 0, 1);
-        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT, entityZPos, 0, 0);
+        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT / 2, entityZPos, 0, 0);
 
 
-        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT, entityZPos + outlineRadius, 1, 0);
-        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT, entityZPos, 0, 0);
+        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT / 2, entityZPos + outlineRadius, 1, 0);
+        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT / 2, entityZPos, 0, 0);
         tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos, 0, 1);
         tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos + outlineRadius, 1, 1);
 
-        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT, entityZPos + outlineRadius, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT / 2, entityZPos + outlineRadius, 1, 0);
         tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos + outlineRadius, 1, 1);
         tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos, 0, 1);
-        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT, entityZPos, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT / 2, entityZPos, 0, 0);
 
-        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT, entityZPos + outlineRadius, 1, 0);
-        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT, entityZPos + outlineRadius, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos + MAX_HEIGHT / 2, entityZPos + outlineRadius, 1, 0);
+        tessellator.addVertexWithUV(entityXPos, entityYPos + MAX_HEIGHT / 2, entityZPos + outlineRadius, 0, 0);
         tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos + outlineRadius, 0, 1);
         tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos + outlineRadius, 1, 1);
+
+        tessellator.addVertexWithUV(entityXPos, entityYPos - MAX_HEIGHT / 2, entityZPos, 0, 0);
+        tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos, 0, 1);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos, 1, 1);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos - MAX_HEIGHT / 2, entityZPos, 1, 0);
+
+
+        tessellator.addVertexWithUV(entityXPos, entityYPos - MAX_HEIGHT / 2, entityZPos + outlineRadius, 1, 0);
+        tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos + outlineRadius, 1, 1);
+        tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos, 0, 1);
+        tessellator.addVertexWithUV(entityXPos, entityYPos - MAX_HEIGHT / 2, entityZPos, 0, 0);
+
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos - MAX_HEIGHT / 2, entityZPos, 0, 0);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos, 0, 1);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos + outlineRadius, 1, 1);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos - MAX_HEIGHT / 2, entityZPos + outlineRadius, 1, 0);
+
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos - MAX_HEIGHT / 2, entityZPos + outlineRadius, 1, 0);
+        tessellator.addVertexWithUV(entityXPos + outlineRadius, entityYPos, entityZPos + outlineRadius, 1, 1);
+        tessellator.addVertexWithUV(entityXPos, entityYPos, entityZPos + outlineRadius, 0, 1);
+        tessellator.addVertexWithUV(entityXPos, entityYPos - MAX_HEIGHT / 2, entityZPos + outlineRadius, 0, 0);
 
         tessellator.draw();
 
@@ -137,7 +185,7 @@ public class BeamRenderer {
         int colorTagIndex = itemName.indexOf("§");
 
         if (colorTagIndex == -1) {
-            return Color.WHITE;
+            return charToAWTColor.getOrDefault(String.valueOf(itemStack.getItem().getRarity(itemStack).rarityColor.getFormattingCode()), Color.WHITE);
         }
 
         String colorCodePosition = String.valueOf(itemName.charAt(colorTagIndex + 1));
