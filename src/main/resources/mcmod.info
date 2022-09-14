@@ -1,13 +1,13 @@
 [
     {
-      "modid": "lootbeamsbackport",
-      "name": "Loot Beams backport",
+      "modid": "beamingdrops",
+      "name": "Beaming Drops",
       "description": "Backport of shiroroku's Loot Beams to 1.7.10",
       "version": "${version}",
       "mcversion": "${mcversion}",
       "updateUrl": "",
       "authorList": ["Veritaris"],
-      "credits": "All code contributors and especially to shiroroku as original mod developer",
+      "credits": "All code contributors, shiroroku as original mod developer and GloomyFolken for hooklib",
       "logoFile": "",
       "screenshots": [],
       "dependencies": []

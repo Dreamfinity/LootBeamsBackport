@@ -72,7 +72,7 @@ processResources {
 
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'org.dreamfinity.lootbeamsbackport.HookLoader'
+        attributes 'FMLCorePlugin': 'org.dreamfinity.beamingdrops.HookLoader'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }

@@ -1,7 +1,7 @@
-[![availableFor](https://cf.way2muchnoise.eu/versions/loot-beams-backport.svg)](https://www.curseforge.com/minecraft/mc-mods/loot-beams-backport) 
-[![title](https://cf.way2muchnoise.eu/title/loot-beams-backport.svg)](https://www.curseforge.com/minecraft/mc-mods/loot-beams-backport)
+[![availableFor](https://cf.way2muchnoise.eu/versions/beaming-drops.svg)](https://www.curseforge.com/minecraft/mc-mods/beaming-drops)
+[![title](https://cf.way2muchnoise.eu/title/beaming-drops.svg)](https://www.curseforge.com/minecraft/mc-mods/beaming-drops)
 [![Discord](https://img.shields.io/discord/157892343163387904?color=5865F2&label=Discord)](https://discord.gg/weChv5cF)
-[![logo](https://img.shields.io/endpoint.svg?url=https://dreamfinity.org/badge.php)](https://dreamfinity.org)
+[![logo](https://img.shields.io/endpoint.svg?url=https://dreamfinity.org/badge.php&label=Ported)](https://dreamfinity.org)
 # Loot Beams Backport
 ## Backport of shiroroku's Loot Beams to 1.7.10
 ## Example of in-world work:
@@ -35,8 +35,8 @@
 ```
 
 #### Repo & build info:
-Almost all dependencies must exist at [CloudRep](https://cloudrep.veritaris.me/repos). 
-If something is missing - pls contact with me via 
-[VK](https://vk.me/veritaris), 
-[Telegram](tg://resolve?domain=Veritaris) or 
+Almost all dependencies must exist at [CloudRep](https://cloudrep.veritaris.me/repos).
+If something is missing - pls contact with me via
+[VK](https://vk.me/veritaris),
+[Telegram](https://tg.me/Veritaris) or
 email (georgiiimeshkenov@gmail.com)
