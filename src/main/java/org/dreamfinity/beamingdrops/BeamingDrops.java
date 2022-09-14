@@ -1,28 +1,26 @@
-package org.dreamfinity.lootbeamsbackport;
+package org.dreamfinity.beamingdrops;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.dreamfinity.lootbeamsbackport.proxy.CommonProxy;
+import org.dreamfinity.beamingdrops.proxy.CommonProxy;
 
 
 @Mod(
-    modid = LootBeamsBackport.MODID,
-    name = LootBeamsBackport.NAME,
-    version = LootBeamsBackport.VERSION
+    modid = BeamingDrops.MODID,
+    name = BeamingDrops.NAME,
+    version = BeamingDrops.VERSION
 )
-public class LootBeamsBackport {
-    public static final  String MODID = "lootbeamsbackport";
-    public static final String NAME = "LootBeamsBackport";
+public class BeamingDrops {
+    public static final  String MODID = "beamingdrops";
+    public static final String NAME = "BeamingDrops";
     public static final String VERSION = "@version@";
 
     @SidedProxy(
-        clientSide = "org.dreamfinity.lootbeamsbackport.proxy.ClientProxy",
-        serverSide = "org.dreamfinity.lootbeamsbackport.proxy.CommonProxy"
+        clientSide = "org.dreamfinity.beamingdrops.proxy.ClientProxy",
+        serverSide = "org.dreamfinity.beamingdrops.proxy.CommonProxy"
     )
     public static CommonProxy proxy;
 

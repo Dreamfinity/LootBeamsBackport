@@ -1,4 +1,4 @@
-package org.dreamfinity.lootbeamsbackport.proxy;
+package org.dreamfinity.beamingdrops.proxy;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

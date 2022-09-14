@@ -1,4 +1,4 @@
-package org.dreamfinity.lootbeamsbackport;
+package org.dreamfinity.beamingdrops;
 
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -47,7 +47,7 @@ public class BeamRenderer {
         }
 
         beamColor = getItemColor(itemStack);
-        if (beamColor == Color.WHITE) {
+        if (beamColor.equals(Color.WHITE)) {
             return;
         }
 

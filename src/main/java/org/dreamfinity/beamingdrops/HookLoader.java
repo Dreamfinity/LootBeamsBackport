@@ -1,4 +1,4 @@
-package org.dreamfinity.lootbeamsbackport;
+package org.dreamfinity.beamingdrops;
 
 import com.integral.hooklibultimate.minecraft.PrimaryClassTransformer;
 
@@ -12,6 +12,6 @@ public class HookLoader extends com.integral.hooklibultimate.minecraft.HookLoade
 
     @Override
     public void registerHooks() {
-        registerHookContainer("org.dreamfinity.lootbeamsbackport.hooks.DroppedItemRenderHook");
+        registerHookContainer("org.dreamfinity.beamingdrops.hooks.DroppedItemRenderHook");
     }
 }

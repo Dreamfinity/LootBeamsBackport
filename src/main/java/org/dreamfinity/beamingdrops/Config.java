@@ -1,4 +1,4 @@
-package org.dreamfinity.lootbeamsbackport;
+package org.dreamfinity.beamingdrops;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.config.Configuration;
@@ -16,7 +16,7 @@ public class Config {
     public static double beamHeight = 1.5;
 
     public static void load(FMLPreInitializationEvent event) {
-        config = new Configuration(new File(event.getModConfigurationDirectory(), "LootBeamsBackport.cfg"), true);
+        config = new Configuration(new File(event.getModConfigurationDirectory(), "BeamingDrops.cfg"), true);
         config.load();
         needRenderBeam = config.getBoolean("needRenderBeam", COMMON, true,  "Render beam above items or not");
         useHighResBeam = config.getBoolean("useHighResBeam", COMMON, true,  "Use high-res (256x256) beam texture or low-res(16x16)");

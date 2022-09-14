@@ -1,4 +1,4 @@
-package org.dreamfinity.lootbeamsbackport.hooks;
+package org.dreamfinity.beamingdrops.hooks;
 
 import com.integral.hooklibultimate.asm.Hook;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -8,7 +8,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.ForgeHooksClient;
-import org.dreamfinity.lootbeamsbackport.BeamRenderer;
+import org.dreamfinity.beamingdrops.BeamRenderer;
 
 import java.util.Random;
 
