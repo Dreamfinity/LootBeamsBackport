@@ -48,19 +48,4 @@ public class ItemHelper {
         }
         return false;
     }
-
-    public static ItemStack createStackFromString(String stackString) {
-        String[] splitString = stackString.split(":");
-        if (splitString.length < 2 || splitString.length > 3) {
-            return null;
-        }
-        Item item = GameRegistry.findItem(splitString[0], splitString[1]);
-        ItemStack stack = new ItemStack(item);
-        if (splitString.length == 3) {
-            try {
-                stack.setItemDamage(Integer.parseInt(splitString[2]));
-            } catch (Exception ignored) {}
-        }
-        return stack;
-    }
 }
